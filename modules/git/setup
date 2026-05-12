@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+MODULE_DIR=$(realpath $(dirname "$0"))
+
+echo "Linking module/git/config"
+ln -sf "$MODULE_DIR/config" "$HOME/.gitconfig"
+
