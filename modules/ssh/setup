@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -u
+
+SCRIPT_DIR="$(dirname -- ${BASH_SOURCE[0]})"
+LIB_DIR="$SCRIPT_DIR/../../lib"
+
+source "$LIB_DIR"/module.sh
+source "$LIB_DIR"/ensure_homebrew.sh
+source "$LIB_DIR"/paths.sh
+
+
+MODULE_NAME=$(basename -- "$SCRIPT_DIR")
+MODULE_DIR=$(module_path $MODULE_NAME)
+
+LINKS=(
+  "$MODULE_DIR/config:$HOME/.ssh/config"
+  "$MODULE_DIR/config.d/all_hosts:$HOME/.ssh/config.d/all_hosts"
+)
+
+ensure_ssh_dir() {
+  mkdir -p "$HOME/.ssh/config.d" \
+    && chmod 0700 "$HOME/.ssh" \
+    && chmod 0700 "$HOME/.ssh/config.d"
+}
+
+ensure_homebrew \
+  && brew bundle install --file="$MODULE_DIR/Brewfile" \
+  && ensure_ssh_dir \
+  && create_links $MODULE_NAME "${LINKS[@]}"
