@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
-MODULE_DIR=$(realpath $(dirname "$0"))
+set -u
 
-echo "Linking module/git/config"
-ln -sf "$MODULE_DIR/config" "$HOME/.gitconfig"
+SCRIPT_DIR="$(dirname -- ${BASH_SOURCE[0]})"
+LIB_DIR="$SCRIPT_DIR/../../lib"
 
+source "$LIB_DIR"/module.sh
+source "$LIB_DIR"/ensure_homebrew.sh
+source "$LIB_DIR"/paths.sh
+
+
+MODULE_NAME=$(basename -- "$SCRIPT_DIR")
+MODULE_DIR=$(module_path $MODULE_NAME)
+
+LINKS=("$MODULE_DIR/config:$HOME/.gitconfig")
+
+ensure_homebrew \
+  && brew bundle install --file="$MODULE_DIR/Brewfile" \
+  && create_links $MODULE_NAME $LINKS

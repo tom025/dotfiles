@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -u
+
+SCRIPT_DIR="$(dirname -- ${BASH_SOURCE[0]})"
+
+source "$SCRIPT_DIR"/../../lib/paths.sh
+source "$SCRIPT_DIR"/../../lib/module.sh
+
+
+MODULE_NAME=$(basename -- "$SCRIPT_DIR")
+MODULE_DIR=$(module_path $MODULE_NAME)
+
+LINKS=("${MODULE_DIR}/.zprofile:$HOME/.zprofile")
+
+create_links $MODULE_NAME $LINKS
