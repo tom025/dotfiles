@@ -1,8 +1,9 @@
 create_links() {
   local module="$1"
-  local links=$2
+  shift 
+  local links=("$@")
   
-  for link in ${links[@]}; do
+  for link in "${links[@]}"; do
     split=(${link//:/ })
     src=${split[0]}
     dst=${split[1]}
