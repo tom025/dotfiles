@@ -1,20 +1,37 @@
 # `dotfiles` #
 
-## Passwordless sudo ##
+My personal software dependencies and configuration.
 
-Passwordless sudo is needed for HomeBrew install
+## Setup dev machine ##
 
-Add a sudo configuration with `visudo`
+Run
 
 ```sh
-sudo visudo /private/etc/sudoers.d/tom025
+./modules/dev/setup
 ```
 
-Copy this text into the file
+This will install and configure the software I use for software development.
 
-```
-tom025            ALL = (ALL) NOPASSWD: ALL
-```
 
-Save and quit
+## Structure ##
+
+This is a pure bash v3 project for installing and configuring software on a macOS host.
+
+
+The project is split between modules and libs
+
+### `modules`
+
+Where specific software and configuration is defined. Each module contains a executable script called `setup` that when run will install any software dependencies and configure them by linking files to specific locations on the host.
+
+A module may just setup one dependency or it may depend on other modules by executing the `setup` script of the dependency.
+
+Homebrew and `Brewfiles` are used to define software to install.
+
+Each module should be idempotent so that it can run multiple times without unintended side effects or manual intervention.
+
+### `lib`
+
+These files contain bash functions that can be used by modules and contain shared code. These files are not executable.
+
 
