@@ -1,11 +1,11 @@
 # shellcheck shell=bash
 create_links() {
   local module="$1"
-  shift 
+  shift
   local links=("$@")
-  
+
   for link in "${links[@]}"; do
-    IFS=':' read -r -a split <<< "$link"
+    IFS=':' read -r -a split <<<"$link"
     src=${split[0]}
     dst=${split[1]}
     if ! [[ -f "$src" || -d "$src" ]]; then
@@ -16,4 +16,3 @@ create_links() {
     ln -sf "$src" "$dst"
   done
 }
-

@@ -6,6 +6,7 @@ SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 
 MODULES=(
   apps
+  bashdev
   zsh
   git
   ssh
@@ -16,4 +17,3 @@ for module in "${MODULES[@]}"; do
     exit 1
   fi
 done
-

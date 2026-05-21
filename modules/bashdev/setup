@@ -7,18 +7,10 @@ PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." &>/dev/null && pwd)"
 
 cd "$PROJECT_ROOT" || exit 1
 
-source lib/module.sh
 source lib/ensure_homebrew.sh
 
 MODULE_NAME=$(basename -- "$SCRIPT_DIR")
 MODULE_DIR="$PROJECT_ROOT/modules/$MODULE_NAME"
 
-LINKS=(
-  "$MODULE_DIR/config:$HOME/.gitconfig"
-  "$MODULE_DIR/config.d:$HOME/.gitconfig.d"
-)
-
-"$PROJECT_ROOT/modules/1password/setup" \
-  && ensure_homebrew \
-  && brew bundle install --file="$MODULE_DIR/Brewfile" \
-  && create_links "$MODULE_NAME" "${LINKS[@]}"
+ensure_homebrew \
+  && brew bundle install --file="$MODULE_DIR/Brewfile"

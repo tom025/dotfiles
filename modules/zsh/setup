@@ -4,12 +4,10 @@ set -u
 
 SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 
-
 # shellcheck source=./lib/paths.sh
 source "$SCRIPT_DIR"/../../lib/paths.sh
 # shellcheck source=./lib/module.sh
 source "$SCRIPT_DIR"/../../lib/module.sh
-
 
 MODULE_NAME=$(basename -- "$SCRIPT_DIR")
 MODULE_DIR=$(module_path "$MODULE_NAME")

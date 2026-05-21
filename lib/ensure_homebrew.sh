@@ -13,11 +13,9 @@ load_homebrew() {
   eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 }
 
-
 ensure_homebrew() {
   [[ -z ${loaded_homebrew+x} ]] \
     && install_homebrew \
     && load_homebrew
   loaded_homebrew='true'
 }
-

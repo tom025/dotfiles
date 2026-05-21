@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+# Run shfmt across all bash files in the project.
+# Any arguments are passed through to shfmt.
+# Defaults to -d (show diff) when no arguments are passed.
+#
+# Examples:
+#   bin/fmt                  # show diff of changes that would be made
+#   bin/fmt -w               # write formatting changes in place
+#   bin/fmt -l               # list files that are not formatted
+#   bin/fmt -d -i 4          # override indent width
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." &>/dev/null && pwd)"
+
+cd "$PROJECT_ROOT" || exit 1
+
+# Default to diff mode when no arguments are passed so we never accidentally
+# clobber files or dump formatted content to stdout.
+if [[ $# -eq 0 ]]; then
+  set -- -d
+fi
+
+{
+  find . -type f -name '*.sh' -not -path './.git/*'
+  find . -type f -not -path './.git/*' -exec grep -l '^#!.*bash' {} \;
+} | sort -u \
+  | sed 's|^\./||' \
+  | xargs shfmt "$@"
