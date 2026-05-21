@@ -1,0 +1,5 @@
+cask "claude"
+cask "slack"
+cask "tidal"
+cask "whatsapp"
+cask "zoom"
