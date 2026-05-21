@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 install_homebrew() {
   if [[ -x /opt/homebrew/bin/brew ]]; then
     echo "Homebrew already installed"

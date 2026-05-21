@@ -2,7 +2,7 @@
 
 set -u
 
-SCRIPT_DIR="$(dirname -- ${BASH_SOURCE[0]})"
+SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 
 MODULES=(
   zsh
@@ -10,7 +10,7 @@ MODULES=(
   ssh
 )
 
-for module in ${MODULES[@]}; do
+for module in "${MODULES[@]}"; do
   if ! "$SCRIPT_DIR/../$module/setup"; then
     exit 1
   fi

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Run shellcheck across all bash files in the project.
+# Any arguments are passed through to shellcheck.
+#
+# Examples:
+#   bin/lint                        # standard lint
+#   bin/lint --format=diff          # output patch of suggested fixes
+#   bin/lint --format=diff | git apply   # apply fixes
+#   bin/lint --severity=warning     # only show warnings and above
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." &> /dev/null && pwd)"
+
+cd "$PROJECT_ROOT" || exit 1
+
+{
+  find . -type f -name '*.sh' -not -path './.git/*'
+  find . -type f -not -path './.git/*' -exec grep -l '^#!.*bash' {} \;
+} | sort -u \
+  | sed 's|^\./||' \
+  | xargs shellcheck -x "$@"

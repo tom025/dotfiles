@@ -2,16 +2,19 @@
 
 set -u
 
-SCRIPT_DIR="$(dirname -- ${BASH_SOURCE[0]})"
+SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 LIB_DIR="$SCRIPT_DIR/../../lib"
 
-source "$LIB_DIR"/module.sh
+# shellcheck source=./lib/module.sh
+source "$LIB_DIR/module.sh"
+# shellcheck source=./lib/ensure_homebrew.sh
 source "$LIB_DIR"/ensure_homebrew.sh
+# shellcheck source=./lib/paths.sh
 source "$LIB_DIR"/paths.sh
 
 
 MODULE_NAME=$(basename -- "$SCRIPT_DIR")
-MODULE_DIR=$(module_path $MODULE_NAME)
+MODULE_DIR=$(module_path "$MODULE_NAME")
 
 LINKS=(
   "$MODULE_DIR/config:$HOME/.ssh/config"
@@ -27,4 +30,4 @@ ensure_ssh_dir() {
 ensure_homebrew \
   && brew bundle install --file="$MODULE_DIR/Brewfile" \
   && ensure_ssh_dir \
-  && create_links $MODULE_NAME "${LINKS[@]}"
+  && create_links "$MODULE_NAME" "${LINKS[@]}"
