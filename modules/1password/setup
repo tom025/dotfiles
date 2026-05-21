@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -u
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." &> /dev/null && pwd)"
+
+cd "$PROJECT_ROOT" || exit 1
+
+source ./lib/ensure_homebrew.sh
+
+ensure_homebrew \
+  && brew bundle install --file "$SCRIPT_DIR/Brewfile"
+

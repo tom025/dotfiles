@@ -2,19 +2,17 @@
 
 set -u
 
-SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
-LIB_DIR="$SCRIPT_DIR/../../lib"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." &> /dev/null && pwd)"
 
-# shellcheck source=./lib/module.sh
-source "$LIB_DIR/module.sh"
-# shellcheck source=./lib/ensure_homebrew.sh
-source "$LIB_DIR"/ensure_homebrew.sh
-# shellcheck source=./lib/paths.sh
-source "$LIB_DIR"/paths.sh
+cd "$PROJECT_ROOT" || exit 1
+
+source lib/ensure_homebrew.sh
+source lib/module.sh
 
 
 MODULE_NAME=$(basename -- "$SCRIPT_DIR")
-MODULE_DIR=$(module_path "$MODULE_NAME")
+MODULE_DIR="$PROJECT_ROOT/modules/$MODULE_NAME"
 
 LINKS=(
   "$MODULE_DIR/config:$HOME/.ssh/config"
@@ -27,7 +25,6 @@ ensure_ssh_dir() {
     && chmod 0700 "$HOME/.ssh/config.d"
 }
 
-ensure_homebrew \
-  && brew bundle install --file="$MODULE_DIR/Brewfile" \
+"$PROJECT_ROOT/modules/1password/setup" \
   && ensure_ssh_dir \
   && create_links "$MODULE_NAME" "${LINKS[@]}"

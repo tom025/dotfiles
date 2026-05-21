@@ -8,7 +8,7 @@ create_links() {
     IFS=':' read -r -a split <<< "$link"
     src=${split[0]}
     dst=${split[1]}
-    if [[ ! -f "$src" ]]; then
+    if ! [[ -f "$src" || -d "$src" ]]; then
       echo "$src: does not exist"
       return
     fi
