@@ -1,4 +1,6 @@
 cask "claude"
+cask "gather"
+cask "microsoft-teams"
 cask "slack"
 cask "tidal"
 cask "whatsapp"
