@@ -16,3 +16,8 @@ create_links() {
     ln -sf "$src" "$dst"
   done
 }
+
+ensure_dot_config() {
+  mkdir -p "$HOME/.config" \
+    && chmod 0700 "$HOME/.config"
+}
