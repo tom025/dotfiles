@@ -1,5 +1,26 @@
+[core]
+  editor = /opt/homebrew/bin/nvim
+[diff]
+  algorithm = histogram
+  context = 10
+[fetch]
+  prune = true
+  prunetags = true
+[init]
+  defaultbranch = main
+[log]
+  date = iso
+[merge]
+  conflictstyle = zdiff3
+[pull]
+  rebase = true
+[push]
+  autoSetupRemote = true
+[transfer]
+  fsckobjects = true
 [user]
   name = "Tom Brand"
   email = tom025@me.com
 [include]
   path = .gitconfig.d/signing
+  path = .gitconfig.d/aliases
