@@ -1,1 +1,2 @@
+brew "node" # Needed for bash language server
 brew "neovim"
