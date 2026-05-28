@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -u
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." &>/dev/null && pwd)"
+
+cd "$PROJECT_ROOT" || exit 1
+
+source lib/module.sh
+source lib/ensure_homebrew.sh
+
+MODULE_NAME=$(basename -- "$SCRIPT_DIR")
+MODULE_DIR="$PROJECT_ROOT/modules/$MODULE_NAME"
+
+LINKS=(
+  "$MODULE_DIR/config:$HOME/.config/ghostty"
+)
+
+ensure_homebrew \
+  && brew bundle install --file="$MODULE_DIR/Brewfile" \
+  && ensure_dot_config \
+  && create_links "$MODULE_NAME" "${LINKS[@]}" \
