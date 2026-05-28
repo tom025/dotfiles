@@ -7,9 +7,10 @@ SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 MODULES=(
   apps
   bashdev
-  zsh
+  nvim
   git
   ssh
+  zsh
 )
 
 for module in "${MODULES[@]}"; do
