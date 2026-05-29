@@ -21,4 +21,4 @@ ensure_homebrew \
   && brew bundle install --file="$MODULE_DIR/Brewfile" \
   && ensure_dot_config \
   && create_links "$MODULE_NAME" "${LINKS[@]}" \
-  && nvim --headless "+Lazy! sync" +qa
+  && nvim --headless "+Lazy! install" +qa
