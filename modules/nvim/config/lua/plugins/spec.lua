@@ -16,5 +16,17 @@ return {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
-  }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter').install({
+        "bash",
+        "python"
+      })
+    end
+  },
 }

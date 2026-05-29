@@ -1,3 +1,4 @@
+# vim:filetype=bash
 # shellcheck shell=bash
 
 install_homebrew() {

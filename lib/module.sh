@@ -1,3 +1,4 @@
+# vim:filetype=bash
 # shellcheck shell=bash
 create_links() {
   local module="$1"
