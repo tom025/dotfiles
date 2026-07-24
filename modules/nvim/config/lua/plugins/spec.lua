@@ -112,13 +112,26 @@ return {
       require("neotest").setup({
         adapters = {
           require("neotest-bash")
-        }
+        },
+        status = {
+          virtual_text = true,
+        },
       })
-    end
+    end,
+    keys = {
+      { "<leader>tn", function() require("neotest").run.run() end, desc = "Test nearest" },
+      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test file" },
+      { "<leader>ta", function() require("neotest").run.run({ suite = true }) end, desc = "Test all" },
+      { "<leader>tl", function() require("neotest").run.run_last() end, desc = "Test last" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle summary" },
+      { "<leader>to", function() require("neotest").output.open({ enter = true }) end, desc = "Show output" },
+      { "<leader>tp", function() require("neotest").output_panel.toggle() end, desc = "Output panel" },
+      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug test" },
+    }
   },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {}
+    opts = {},
   },
 }
