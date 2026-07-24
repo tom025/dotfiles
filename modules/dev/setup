@@ -7,8 +7,10 @@ SCRIPT_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 MODULES=(
   apps
   bashdev
-  nvim
+  claude-code
   git
+  intellij-idea
+  nvim
   ssh
   zsh
 )

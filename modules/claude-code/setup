@@ -1,0 +1,5 @@
+#/usr/bin/env bash
+
+set -u
+
+curl -fsSL https://claude.ai/install.sh | bash
